@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TrainingAppModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Meetings">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeetingName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Agenda" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="ScheduleId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="DeletedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MeetingsAttendees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeetingId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="DeletedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomDetails">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="DeletedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Schedules">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="RoomId" Type="int" />
+        </EntityType>
+        <EntityType Name="Trainings">
+          <Key>
+            <PropertyRef Name="TrainingId" />
+          </Key>
+          <Property Name="TrainingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Topic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ScheduleId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="DeletedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TrainingsAttendees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrainingId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="DeletedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserCredentials">
+          <Key>
+            <PropertyRef Name="UserCreadID" />
+          </Key>
+          <Property Name="UserCreadID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="bit" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" />
+          <Property Name="Token" Type="nvarchar" MaxLength="1" />
+          <Property Name="IsActivated" Type="bit" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="DeletedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Meetings__Schedu__09A971A2">
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Meetings__UserId__0A9D95DB">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeetingsA__Meeti__0D7A0286">
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="0..1" />
+          <End Role="MeetingsAttendees" Type="Self.MeetingsAttendees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meetings">
+              <PropertyRef Name="MeetingId" />
+            </Principal>
+            <Dependent Role="MeetingsAttendees">
+              <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeetingsA__UserI__0E6E26BF">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MeetingsAttendees" Type="Self.MeetingsAttendees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MeetingsAttendees">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedules__RoomI__7F2BE32F">
+          <End Role="RoomDetails" Type="Self.RoomDetails" Multiplicity="0..1" />
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomDetails">
+              <PropertyRef Name="RoomId" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__Sched__02084FDA">
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="0..1" />
+          <End Role="Trainings" Type="Self.Trainings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="Trainings">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__Train__05D8E0BE">
+          <End Role="Trainings" Type="Self.Trainings" Multiplicity="0..1" />
+          <End Role="TrainingsAttendees" Type="Self.TrainingsAttendees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trainings">
+              <PropertyRef Name="TrainingId" />
+            </Principal>
+            <Dependent Role="TrainingsAttendees">
+              <PropertyRef Name="TrainingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__UserI__02FC7413">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Trainings" Type="Self.Trainings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Trainings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__UserI__06CD04F7">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="TrainingsAttendees" Type="Self.TrainingsAttendees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TrainingsAttendees">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserCrede__UserI__76969D2E">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserCredentials" Type="Self.UserCredentials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserCredentials">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleId__72C60C4A">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingAppModel1StoreContainer">
+          <EntitySet Name="Meetings" EntityType="Self.Meetings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeetingsAttendees" EntityType="Self.MeetingsAttendees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomDetails" EntityType="Self.RoomDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trainings" EntityType="Self.Trainings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingsAttendees" EntityType="Self.TrainingsAttendees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCredentials" EntityType="Self.UserCredentials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Meetings__Schedu__09A971A2" Association="Self.FK__Meetings__Schedu__09A971A2">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Meetings__UserId__0A9D95DB" Association="Self.FK__Meetings__UserId__0A9D95DB">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeetingsA__Meeti__0D7A0286" Association="Self.FK__MeetingsA__Meeti__0D7A0286">
+            <End Role="Meetings" EntitySet="Meetings" />
+            <End Role="MeetingsAttendees" EntitySet="MeetingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeetingsA__UserI__0E6E26BF" Association="Self.FK__MeetingsA__UserI__0E6E26BF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MeetingsAttendees" EntitySet="MeetingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedules__RoomI__7F2BE32F" Association="Self.FK__Schedules__RoomI__7F2BE32F">
+            <End Role="RoomDetails" EntitySet="RoomDetails" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__Sched__02084FDA" Association="Self.FK__Trainings__Sched__02084FDA">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Trainings" EntitySet="Trainings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__Train__05D8E0BE" Association="Self.FK__Trainings__Train__05D8E0BE">
+            <End Role="Trainings" EntitySet="Trainings" />
+            <End Role="TrainingsAttendees" EntitySet="TrainingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__UserI__02FC7413" Association="Self.FK__Trainings__UserI__02FC7413">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Trainings" EntitySet="Trainings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__UserI__06CD04F7" Association="Self.FK__Trainings__UserI__06CD04F7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TrainingsAttendees" EntitySet="TrainingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserCrede__UserI__76969D2E" Association="Self.FK__UserCrede__UserI__76969D2E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserCredentials" EntitySet="UserCredentials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleId__72C60C4A" Association="Self.FK__Users__RoleId__72C60C4A">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrainingAppModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Meeting">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeetingName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Agenda" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ScheduleId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="DeletedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK__Meetings__Schedu__09A971A2" FromRole="Meetings" ToRole="Schedules" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Meetings__UserId__0A9D95DB" FromRole="Meetings" ToRole="Users" />
+          <NavigationProperty Name="MeetingsAttendees" Relationship="Self.FK__MeetingsA__Meeti__0D7A0286" FromRole="Meetings" ToRole="MeetingsAttendees" />
+        </EntityType>
+        <EntityType Name="MeetingsAttendee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeetingId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="DeletedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Meeting" Relationship="Self.FK__MeetingsA__Meeti__0D7A0286" FromRole="MeetingsAttendees" ToRole="Meetings" />
+          <NavigationProperty Name="User" Relationship="Self.FK__MeetingsA__UserI__0E6E26BF" FromRole="MeetingsAttendees" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleId__72C60C4A" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="RoomDetail">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="DeletedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedules__RoomI__7F2BE32F" FromRole="RoomDetails" ToRole="Schedules" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="RoomId" Type="Int32" />
+          <NavigationProperty Name="Meetings" Relationship="Self.FK__Meetings__Schedu__09A971A2" FromRole="Schedules" ToRole="Meetings" />
+          <NavigationProperty Name="RoomDetail" Relationship="Self.FK__Schedules__RoomI__7F2BE32F" FromRole="Schedules" ToRole="RoomDetails" />
+          <NavigationProperty Name="Trainings" Relationship="Self.FK__Trainings__Sched__02084FDA" FromRole="Schedules" ToRole="Trainings" />
+        </EntityType>
+        <EntityType Name="Training">
+          <Key>
+            <PropertyRef Name="TrainingId" />
+          </Key>
+          <Property Name="TrainingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Topic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ScheduleId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="DeletedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK__Trainings__Sched__02084FDA" FromRole="Trainings" ToRole="Schedules" />
+          <NavigationProperty Name="TrainingsAttendees" Relationship="Self.FK__Trainings__Train__05D8E0BE" FromRole="Trainings" ToRole="TrainingsAttendees" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Trainings__UserI__02FC7413" FromRole="Trainings" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="TrainingsAttendee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrainingId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="DeletedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Training" Relationship="Self.FK__Trainings__Train__05D8E0BE" FromRole="TrainingsAttendees" ToRole="Trainings" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Trainings__UserI__06CD04F7" FromRole="TrainingsAttendees" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserCredential">
+          <Key>
+            <PropertyRef Name="UserCreadID" />
+          </Key>
+          <Property Name="UserCreadID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="Boolean" />
+          <Property Name="ActivationCode" Type="Guid" />
+          <Property Name="Token" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="IsActivated" Type="Boolean" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserCrede__UserI__76969D2E" FromRole="UserCredentials" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="DeletedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Meetings" Relationship="Self.FK__Meetings__UserId__0A9D95DB" FromRole="Users" ToRole="Meetings" />
+          <NavigationProperty Name="MeetingsAttendees" Relationship="Self.FK__MeetingsA__UserI__0E6E26BF" FromRole="Users" ToRole="MeetingsAttendees" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleId__72C60C4A" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="Trainings" Relationship="Self.FK__Trainings__UserI__02FC7413" FromRole="Users" ToRole="Trainings" />
+          <NavigationProperty Name="TrainingsAttendees" Relationship="Self.FK__Trainings__UserI__06CD04F7" FromRole="Users" ToRole="TrainingsAttendees" />
+          <NavigationProperty Name="UserCredentials" Relationship="Self.FK__UserCrede__UserI__76969D2E" FromRole="Users" ToRole="UserCredentials" />
+        </EntityType>
+        <Association Name="FK__Meetings__Schedu__09A971A2">
+          <End Role="Schedules" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Meetings__UserId__0A9D95DB">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeetingsA__Meeti__0D7A0286">
+          <End Role="Meetings" Type="Self.Meeting" Multiplicity="0..1" />
+          <End Role="MeetingsAttendees" Type="Self.MeetingsAttendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meetings">
+              <PropertyRef Name="MeetingId" />
+            </Principal>
+            <Dependent Role="MeetingsAttendees">
+              <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeetingsA__UserI__0E6E26BF">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="MeetingsAttendees" Type="Self.MeetingsAttendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MeetingsAttendees">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleId__72C60C4A">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedules__RoomI__7F2BE32F">
+          <End Role="RoomDetails" Type="Self.RoomDetail" Multiplicity="0..1" />
+          <End Role="Schedules" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomDetails">
+              <PropertyRef Name="RoomId" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__Sched__02084FDA">
+          <End Role="Schedules" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="Trainings" Type="Self.Training" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="Trainings">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__Train__05D8E0BE">
+          <End Role="Trainings" Type="Self.Training" Multiplicity="0..1" />
+          <End Role="TrainingsAttendees" Type="Self.TrainingsAttendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trainings">
+              <PropertyRef Name="TrainingId" />
+            </Principal>
+            <Dependent Role="TrainingsAttendees">
+              <PropertyRef Name="TrainingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__UserI__02FC7413">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Trainings" Type="Self.Training" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Trainings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trainings__UserI__06CD04F7">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="TrainingsAttendees" Type="Self.TrainingsAttendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TrainingsAttendees">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserCrede__UserI__76969D2E">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserCredentials" Type="Self.UserCredential" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserCredentials">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingAppEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Meetings" EntityType="Self.Meeting" />
+          <EntitySet Name="MeetingsAttendees" EntityType="Self.MeetingsAttendee" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="RoomDetails" EntityType="Self.RoomDetail" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="Trainings" EntityType="Self.Training" />
+          <EntitySet Name="TrainingsAttendees" EntityType="Self.TrainingsAttendee" />
+          <EntitySet Name="UserCredentials" EntityType="Self.UserCredential" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Meetings__Schedu__09A971A2" Association="Self.FK__Meetings__Schedu__09A971A2">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Meetings__UserId__0A9D95DB" Association="Self.FK__Meetings__UserId__0A9D95DB">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeetingsA__Meeti__0D7A0286" Association="Self.FK__MeetingsA__Meeti__0D7A0286">
+            <End Role="Meetings" EntitySet="Meetings" />
+            <End Role="MeetingsAttendees" EntitySet="MeetingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeetingsA__UserI__0E6E26BF" Association="Self.FK__MeetingsA__UserI__0E6E26BF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MeetingsAttendees" EntitySet="MeetingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleId__72C60C4A" Association="Self.FK__Users__RoleId__72C60C4A">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedules__RoomI__7F2BE32F" Association="Self.FK__Schedules__RoomI__7F2BE32F">
+            <End Role="RoomDetails" EntitySet="RoomDetails" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__Sched__02084FDA" Association="Self.FK__Trainings__Sched__02084FDA">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Trainings" EntitySet="Trainings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__Train__05D8E0BE" Association="Self.FK__Trainings__Train__05D8E0BE">
+            <End Role="Trainings" EntitySet="Trainings" />
+            <End Role="TrainingsAttendees" EntitySet="TrainingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__UserI__02FC7413" Association="Self.FK__Trainings__UserI__02FC7413">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Trainings" EntitySet="Trainings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trainings__UserI__06CD04F7" Association="Self.FK__Trainings__UserI__06CD04F7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TrainingsAttendees" EntitySet="TrainingsAttendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserCrede__UserI__76969D2E" Association="Self.FK__UserCrede__UserI__76969D2E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserCredentials" EntitySet="UserCredentials" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrainingAppModel1StoreContainer" CdmEntityContainer="TrainingAppEntities1">
+          <EntitySetMapping Name="Meetings">
+            <EntityTypeMapping TypeName="TrainingAppModel1.Meeting">
+              <MappingFragment StoreEntitySet="Meetings">
+                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+                <ScalarProperty Name="MeetingName" ColumnName="MeetingName" />
+                <ScalarProperty Name="Agenda" ColumnName="Agenda" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeetingsAttendees">
+            <EntityTypeMapping TypeName="TrainingAppModel1.MeetingsAttendee">
+              <MappingFragment StoreEntitySet="MeetingsAttendees">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TrainingAppModel1.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomDetails">
+            <EntityTypeMapping TypeName="TrainingAppModel1.RoomDetail">
+              <MappingFragment StoreEntitySet="RoomDetails">
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="TrainingAppModel1.Schedule">
+              <MappingFragment StoreEntitySet="Schedules">
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainings">
+            <EntityTypeMapping TypeName="TrainingAppModel1.Training">
+              <MappingFragment StoreEntitySet="Trainings">
+                <ScalarProperty Name="TrainingId" ColumnName="TrainingId" />
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingsAttendees">
+            <EntityTypeMapping TypeName="TrainingAppModel1.TrainingsAttendee">
+              <MappingFragment StoreEntitySet="TrainingsAttendees">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TrainingId" ColumnName="TrainingId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCredentials">
+            <EntityTypeMapping TypeName="TrainingAppModel1.UserCredential">
+              <MappingFragment StoreEntitySet="UserCredentials">
+                <ScalarProperty Name="UserCreadID" ColumnName="UserCreadID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="IsActivated" ColumnName="IsActivated" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TrainingAppModel1.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

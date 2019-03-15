@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="285448045626479eba3d098975679eef" Name="Diagram1">
+        <EntityTypeShape EntityType="TrainingAppModel1.Meeting" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.MeetingsAttendee" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.Role" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.RoomDetail" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.Schedule" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.Training" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.TrainingsAttendee" Width="1.5" PointX="13.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.UserCredential" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingAppModel1.User" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Meetings__Schedu__09A971A2" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Meetings__UserId__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__MeetingsA__Meeti__0D7A0286" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__MeetingsA__UserI__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Users__RoleId__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Schedules__RoomI__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Trainings__Sched__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Trainings__Train__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Trainings__UserI__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__Trainings__UserI__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingAppModel1.FK__UserCrede__UserI__76969D2E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

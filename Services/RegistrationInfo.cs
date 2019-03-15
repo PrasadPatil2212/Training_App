@@ -46,7 +46,7 @@ namespace Services
                     #endregion
 
                     credentials.IsActivated = true;
-                    credentials.IsEmailVerified = true;
+                    credentials.IsEmailVerified = false;
                     credentials.UserId = obj.UserId;
                     dc.UserCredentials.Add(credentials);
                     dc.SaveChanges();
@@ -92,7 +92,7 @@ namespace Services
 
                 var fromEmail = new MailAddress("pdpatil231994@gmail.com", "DotNet Awesome");
                 var toEmail = new MailAddress(emailID);
-                var fromEmailPassword = "W72uzJ2s"; // Replace with actual password
+                var fromEmailPassword = "8237501012"; // Replace with actual password
 
                 string subject = " ";
                 string body = " ";
@@ -106,7 +106,7 @@ namespace Services
 
                 var smtp = new SmtpClient
                 {
-                    Host = "smpt.gmail.com",
+                    Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
@@ -123,7 +123,7 @@ namespace Services
                 return true;
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

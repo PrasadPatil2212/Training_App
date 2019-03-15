@@ -50,7 +50,7 @@ namespace Training_App.MyFilter
                     return false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
